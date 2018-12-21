@@ -1,0 +1,7 @@
+package rules.isString
+
+rule "测试Spring+Drools规则"
+   when
+   then
+       System.out.println("调用规则"+drools.getRule().getName());
+end

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:kie="http://drools.org/schema/kie-spring"
+       xsi:schemaLocation="
+       http://drools.org/schema/kie-spring
+       http://drools.org/schema/kie-spring.xsd
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="RuleTimeImpl" class="com.ruleString.RuleTimeImpl"/>
+    <!-- 与kmodule.xml的配置是相似的 -->
+    <kie:kmodule id="kmodule">
+        <kie:kbase name="kbase" packages="rules.isString">
+            <kie:ksession name="ksession"/>
+        </kie:kbase>
+
+        <kie:kbase name="kbaseTwo" packages="rules.isString">
+            <kie:ksession name="ksessionRun">
+                <kie:ruleRuntimeEventListener ref="RuleTimeImpl"/>
+            </kie:ksession>
+        </kie:kbase>
+
+<!--        <kie:kbase name="kbaseTwo2" packages="rules.isString">
+            <kie:ksession name="ksessionRun2" listeners-ref="debugListeners">
+                <kie:ruleRuntimeEventListener ref="RuleTimeImpl"/>
+            </kie:ksession>
+        </kie:kbase>-->
+    </kie:kmodule>
+<!--    <kie:eventListeners id="debugListeners">
+        <kie:ruleRuntimeEventListener ref="RuleTimeImpl"/>
+        <kie:agendaEventListener ref="mock-agenda-listener"/>
+        <kie:processEventListener ref="mock-process-listener"/>
+    </kie:eventListeners>-->
+
+    <bean id="kiePostProcessor" class="org.kie.spring.annotations.KModuleAnnotationPostProcessor"/>
+</beans>
